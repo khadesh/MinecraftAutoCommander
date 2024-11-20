@@ -508,76 +508,77 @@ class Program
         }
     }
 
-    public static void BuildTower1(int x, int z, int y, MaterialSet materials, List<string> createCommands, List<string> clearCommands)
+    public static void BuildTower1(int x, int z, int y, MaterialSet materials, List<string> createCommands, List<string> clearCommands, int bonusHeight = 0)
     {
-        GetFillCommand(x - 2, z, y, x + 2, z + 7, y + 4, materials.StoneBricks, createCommands, clearCommands, true);
+        GetFillCommand(x - 2, z, y, x + 2, z + 7 + bonusHeight, y + 4, materials.StoneBricks, createCommands, clearCommands, true);
         GetFillCommand(x - 1, z, y + 1, x + 1, z, y + 3, materials.StoneBricks2, createCommands, clearCommands, true);
-        GetFillCommand(x - 1, z + 7, y + 1, x + 1, z + 7, y + 3, "air", createCommands, clearCommands, true);
-        GetFillCommand(x - 2, z + 8, y, x + 2, z + 8, y + 4, materials.ChiseledBricks, createCommands, clearCommands, true);
-        GetFillCommand(x - 1, z + 8, y + 1, x + 1, z + 8, y + 3, materials.Planks, createCommands, clearCommands, true);
-        GetFillCommand(x, z + 4, y, x, z + 6, y, "minecraft:iron_bars", createCommands, clearCommands, true);
-        GetFillCommand(x - 1, z + 1, y + 1, x - 1, z + 8, y + 1, materials.Ladder + "[facing=south]", createCommands, clearCommands, true);
+
+        GetFillCommand(x - 1, z + 7 + bonusHeight, y + 1, x + 1, z + 7 + bonusHeight, y + 3, "air", createCommands, clearCommands, true);
+        GetFillCommand(x - 2, z + 8 + bonusHeight, y, x + 2, z + 8 + bonusHeight, y + 4, materials.ChiseledBricks, createCommands, clearCommands, true);
+        GetFillCommand(x - 1, z + 8 + bonusHeight, y + 1, x + 1, z + 8 + bonusHeight, y + 3, materials.Planks, createCommands, clearCommands, true);
+        GetFillCommand(x, z + 4 + bonusHeight, y, x, z + 6 + bonusHeight, y, "minecraft:iron_bars", createCommands, clearCommands, true);
+        GetFillCommand(x - 1, z + 1, y + 1, x - 1, z + 8 + bonusHeight, y + 1, materials.Ladder + "[facing=south]", createCommands, clearCommands, true);
 
         // Log frame:
-        GetFillCommand(x - 2, z + 9, y + 0, x - 2, z + 13, y + 0, materials.Logs + "[axis=y]", createCommands, clearCommands, true);
-        GetFillCommand(x - 2, z + 9, y + 4, x - 2, z + 13, y + 4, materials.Logs + "[axis=y]", createCommands, clearCommands, true);
-        GetFillCommand(x + 2, z + 9, y + 0, x + 2, z + 13, y + 0, materials.Logs + "[axis=y]", createCommands, clearCommands, true);
-        GetFillCommand(x + 2, z + 9, y + 4, x + 2, z + 13, y + 4, materials.Logs + "[axis=y]", createCommands, clearCommands, true);
-        GetFillCommand(x - 1, z + 13, y + 0, x + 1, z + 13, y + 0, materials.Logs + "[axis=x]", createCommands, clearCommands, true);
-        GetFillCommand(x - 1, z + 13, y + 4, x + 1, z + 13, y + 4, materials.Logs + "[axis=x]", createCommands, clearCommands, true);
-        GetFillCommand(x - 2, z + 13, y + 1, x - 2, z + 13, y + 3, materials.Logs + "[axis=z]", createCommands, clearCommands, true);
-        GetFillCommand(x - 2, z + 13, y + 1, x + 2, z + 13, y + 3, materials.Logs + "[axis=z]", createCommands, clearCommands, true);
+        GetFillCommand(x - 2, z + 9 + bonusHeight, y + 0, x - 2, z + 13 + bonusHeight, y + 0, materials.Logs + "[axis=y]", createCommands, clearCommands, true);
+        GetFillCommand(x - 2, z + 9 + bonusHeight, y + 4, x - 2, z + 13 + bonusHeight, y + 4, materials.Logs + "[axis=y]", createCommands, clearCommands, true);
+        GetFillCommand(x + 2, z + 9 + bonusHeight, y + 0, x + 2, z + 13 + bonusHeight, y + 0, materials.Logs + "[axis=y]", createCommands, clearCommands, true);
+        GetFillCommand(x + 2, z + 9 + bonusHeight, y + 4, x + 2, z + 13 + bonusHeight, y + 4, materials.Logs + "[axis=y]", createCommands, clearCommands, true);
+        GetFillCommand(x - 1, z + 13 + bonusHeight, y + 0, x + 1, z + 13 + bonusHeight, y + 0, materials.Logs + "[axis=x]", createCommands, clearCommands, true);
+        GetFillCommand(x - 1, z + 13 + bonusHeight, y + 4, x + 1, z + 13 + bonusHeight, y + 4, materials.Logs + "[axis=x]", createCommands, clearCommands, true);
+        GetFillCommand(x - 2, z + 13 + bonusHeight, y + 1, x - 2, z + 13 + bonusHeight, y + 3, materials.Logs + "[axis=z]", createCommands, clearCommands, true);
+        GetFillCommand(x - 2, z + 13 + bonusHeight, y + 1, x + 2, z + 13 + bonusHeight, y + 3, materials.Logs + "[axis=z]", createCommands, clearCommands, true);
 
         // Lectern wall:
-        GetFillCommand(x - 1, z + 9, y + 0, x + 1, z + 9, y + 0, "minecraft:lectern[facing=south]", createCommands, clearCommands);
-        GetFillCommand(x - 1, z + 9, y + 4, x + 1, z + 9, y + 4, "minecraft:lectern[facing=north]", createCommands, clearCommands);
-        GetFillCommand(x - 2, z + 9, y + 1, x - 2, z + 9, y + 3, "minecraft:lectern[facing=east]", createCommands, clearCommands);
-        GetFillCommand(x + 2, z + 9, y + 1, x + 2, z + 9, y + 3, "minecraft:lectern[facing=west]", createCommands, clearCommands);
+        GetFillCommand(x - 1, z + 9 + bonusHeight, y + 0, x + 1, z + 9 + bonusHeight, y + 0, "minecraft:lectern[facing=south]", createCommands, clearCommands);
+        GetFillCommand(x - 1, z + 9 + bonusHeight, y + 4, x + 1, z + 9 + bonusHeight, y + 4, "minecraft:lectern[facing=north]", createCommands, clearCommands);
+        GetFillCommand(x - 2, z + 9 + bonusHeight, y + 1, x - 2, z + 9 + bonusHeight, y + 3, "minecraft:lectern[facing=east]", createCommands, clearCommands);
+        GetFillCommand(x + 2, z + 9 + bonusHeight, y + 1, x + 2, z + 9 + bonusHeight, y + 3, "minecraft:lectern[facing=west]", createCommands, clearCommands);
 
-        GetFillCommand(x - 1, z + 12, y + 0, x - 1, z + 12, y + 0, materials.PlankStairs + "[half=top,facing=west]", createCommands, clearCommands);
-        GetFillCommand(x + 1, z + 12, y + 0, x + 1, z + 12, y + 0, materials.PlankStairs + "[half=top,facing=east]", createCommands, clearCommands);
-        GetFillCommand(x - 1, z + 12, y + 4, x - 1, z + 12, y + 4, materials.PlankStairs + "[half=top,facing=west]", createCommands, clearCommands);
-        GetFillCommand(x + 1, z + 12, y + 4, x + 1, z + 12, y + 4, materials.PlankStairs + "[half=top,facing=east]", createCommands, clearCommands);
+        GetFillCommand(x - 1, z + 12 + bonusHeight, y + 0, x - 1, z + 12 + bonusHeight, y + 0, materials.PlankStairs + "[half=top,facing=west]", createCommands, clearCommands);
+        GetFillCommand(x + 1, z + 12 + bonusHeight, y + 0, x + 1, z + 12 + bonusHeight, y + 0, materials.PlankStairs + "[half=top,facing=east]", createCommands, clearCommands);
+        GetFillCommand(x - 1, z + 12 + bonusHeight, y + 4, x - 1, z + 12 + bonusHeight, y + 4, materials.PlankStairs + "[half=top,facing=west]", createCommands, clearCommands);
+        GetFillCommand(x + 1, z + 12 + bonusHeight, y + 4, x + 1, z + 12 + bonusHeight, y + 4, materials.PlankStairs + "[half=top,facing=east]", createCommands, clearCommands);
 
-        GetFillCommand(x - 2, z + 12, y + 1, x - 2, z + 12, y + 1, materials.PlankStairs + "[half=top,facing=north]", createCommands, clearCommands);
-        GetFillCommand(x + 2, z + 12, y + 1, x + 2, z + 12, y + 1, materials.PlankStairs + "[half=top,facing=north]", createCommands, clearCommands);
-        GetFillCommand(x - 2, z + 12, y + 3, x - 2, z + 12, y + 3, materials.PlankStairs + "[half=top,facing=south]", createCommands, clearCommands);
-        GetFillCommand(x + 2, z + 12, y + 3, x + 2, z + 12, y + 3, materials.PlankStairs + "[half=top,facing=south]", createCommands, clearCommands);
+        GetFillCommand(x - 2, z + 12 + bonusHeight, y + 1, x - 2, z + 12 + bonusHeight, y + 1, materials.PlankStairs + "[half=top,facing=north]", createCommands, clearCommands);
+        GetFillCommand(x + 2, z + 12 + bonusHeight, y + 1, x + 2, z + 12 + bonusHeight, y + 1, materials.PlankStairs + "[half=top,facing=north]", createCommands, clearCommands);
+        GetFillCommand(x - 2, z + 12 + bonusHeight, y + 3, x - 2, z + 12 + bonusHeight, y + 3, materials.PlankStairs + "[half=top,facing=south]", createCommands, clearCommands);
+        GetFillCommand(x + 2, z + 12 + bonusHeight, y + 3, x + 2, z + 12 + bonusHeight, y + 3, materials.PlankStairs + "[half=top,facing=south]", createCommands, clearCommands);
 
-        GetFillCommand(x, z + 12, y + 0, x, z + 12, y + 0, materials.PlankTrapdoor + "[half=top]", createCommands, clearCommands);
-        GetFillCommand(x + 2, z + 12, y + 2, x + 2, z + 12, y + 2, materials.PlankTrapdoor + "[half=top]", createCommands, clearCommands);
-        GetFillCommand(x, z + 12, y + 4, x, z + 12, y + 4, materials.PlankTrapdoor + "[half=top]", createCommands, clearCommands);
-        GetFillCommand(x - 2, z + 12, y + 2, x - 2, z + 12, y + 2, materials.PlankTrapdoor + "[half=top]", createCommands, clearCommands);
+        GetFillCommand(x, z + 12 + bonusHeight, y + 0, x, z + 12 + bonusHeight, y + 0, materials.PlankTrapdoor + "[half=top]", createCommands, clearCommands);
+        GetFillCommand(x + 2, z + 12 + bonusHeight, y + 2, x + 2, z + 12 + bonusHeight, y + 2, materials.PlankTrapdoor + "[half=top]", createCommands, clearCommands);
+        GetFillCommand(x, z + 12 + bonusHeight, y + 4, x, z + 12 + bonusHeight, y + 4, materials.PlankTrapdoor + "[half=top]", createCommands, clearCommands);
+        GetFillCommand(x - 2, z + 12 + bonusHeight, y + 2, x - 2, z + 12 + bonusHeight, y + 2, materials.PlankTrapdoor + "[half=top]", createCommands, clearCommands);
 
-        GetFillCommand(x - 1, z + 11, y + 0, x - 1, z + 11, y + 0, materials.PlankTrapdoor + "[open=true,facing=east]", createCommands, clearCommands);
-        GetFillCommand(x + 1, z + 11, y + 0, x + 1, z + 11, y + 0, materials.PlankTrapdoor + "[open=true,facing=west]", createCommands, clearCommands);
-        GetFillCommand(x - 1, z + 11, y + 4, x - 1, z + 11, y + 4, materials.PlankTrapdoor + "[open=true,facing=east]", createCommands, clearCommands);
-        GetFillCommand(x + 1, z + 11, y + 4, x + 1, z + 11, y + 4, materials.PlankTrapdoor + "[open=true,facing=west]", createCommands, clearCommands);
+        GetFillCommand(x - 1, z + 11 + bonusHeight, y + 0, x - 1, z + 11 + bonusHeight, y + 0, materials.PlankTrapdoor + "[open=true,facing=east]", createCommands, clearCommands);
+        GetFillCommand(x + 1, z + 11 + bonusHeight, y + 0, x + 1, z + 11 + bonusHeight, y + 0, materials.PlankTrapdoor + "[open=true,facing=west]", createCommands, clearCommands);
+        GetFillCommand(x - 1, z + 11 + bonusHeight, y + 4, x - 1, z + 11 + bonusHeight, y + 4, materials.PlankTrapdoor + "[open=true,facing=east]", createCommands, clearCommands);
+        GetFillCommand(x + 1, z + 11 + bonusHeight, y + 4, x + 1, z + 11 + bonusHeight, y + 4, materials.PlankTrapdoor + "[open=true,facing=west]", createCommands, clearCommands);
 
-        GetFillCommand(x - 2, z + 11, y + 1, x - 2, z + 11, y + 1, materials.PlankTrapdoor + "[open=true,facing=south]", createCommands, clearCommands);
-        GetFillCommand(x + 2, z + 11, y + 1, x + 2, z + 11, y + 1, materials.PlankTrapdoor + "[open=true,facing=south]", createCommands, clearCommands);
-        GetFillCommand(x - 2, z + 11, y + 3, x - 2, z + 11, y + 3, materials.PlankTrapdoor + "[open=true,facing=north]", createCommands, clearCommands);
-        GetFillCommand(x + 2, z + 11, y + 3, x + 2, z + 11, y + 3, materials.PlankTrapdoor + "[open=true,facing=north]", createCommands, clearCommands);
+        GetFillCommand(x - 2, z + 11 + bonusHeight, y + 1, x - 2, z + 11 + bonusHeight, y + 1, materials.PlankTrapdoor + "[open=true,facing=south]", createCommands, clearCommands);
+        GetFillCommand(x + 2, z + 11 + bonusHeight, y + 1, x + 2, z + 11 + bonusHeight, y + 1, materials.PlankTrapdoor + "[open=true,facing=south]", createCommands, clearCommands);
+        GetFillCommand(x - 2, z + 11 + bonusHeight, y + 3, x - 2, z + 11 + bonusHeight, y + 3, materials.PlankTrapdoor + "[open=true,facing=north]", createCommands, clearCommands);
+        GetFillCommand(x + 2, z + 11 + bonusHeight, y + 3, x + 2, z + 11 + bonusHeight, y + 3, materials.PlankTrapdoor + "[open=true,facing=north]", createCommands, clearCommands);
 
-        GetFillCommand(x - 1, z + 13, y - 1, x + 1, z + 13, y - 1, materials.PlankStairs + "[half=top,facing=south]", createCommands, clearCommands);
-        GetFillCommand(x - 1, z + 13, y + 5, x + 1, z + 13, y + 5, materials.PlankStairs + "[half=top,facing=north]", createCommands, clearCommands);
-        GetFillCommand(x - 3, z + 13, y + 1, x - 3, z + 13, y + 3, materials.PlankStairs + "[half=top,facing=east]", createCommands, clearCommands);
-        GetFillCommand(x + 3, z + 13, y + 1, x + 3, z + 13, y + 3, materials.PlankStairs + "[half=top,facing=west]", createCommands, clearCommands);
+        GetFillCommand(x - 1, z + 13 + bonusHeight, y - 1, x + 1, z + 13 + bonusHeight, y - 1, materials.PlankStairs + "[half=top,facing=south]", createCommands, clearCommands);
+        GetFillCommand(x - 1, z + 13 + bonusHeight, y + 5, x + 1, z + 13 + bonusHeight, y + 5, materials.PlankStairs + "[half=top,facing=north]", createCommands, clearCommands);
+        GetFillCommand(x - 3, z + 13 + bonusHeight, y + 1, x - 3, z + 13 + bonusHeight, y + 3, materials.PlankStairs + "[half=top,facing=east]", createCommands, clearCommands);
+        GetFillCommand(x + 3, z + 13 + bonusHeight, y + 1, x + 3, z + 13 + bonusHeight, y + 3, materials.PlankStairs + "[half=top,facing=west]", createCommands, clearCommands);
 
-        GetFillCommand(x - 1, z + 14, y + 0, x + 1, z + 14, y + 0, materials.Planks, createCommands, clearCommands);
+        GetFillCommand(x - 1, z + 14 + bonusHeight, y + 0, x + 1, z + 14 + bonusHeight, y + 0, materials.Planks, createCommands, clearCommands);
 
-        GetFillCommand(x - 1, z + 14, y + 4, x + 1, z + 14, y + 4, materials.Planks, createCommands, clearCommands);
-        GetFillCommand(x - 2, z + 14, y + 1, x - 2, z + 14, y + 3, materials.Planks, createCommands, clearCommands);
-        GetFillCommand(x + 2, z + 14, y + 1, x + 2, z + 14, y + 3, materials.Planks, createCommands, clearCommands);
-        GetFillCommand(x - 1, z + 15, y + 1, x + 1, z + 15, y + 3, materials.Planks, createCommands, clearCommands);
+        GetFillCommand(x - 1, z + 14 + bonusHeight, y + 4, x + 1, z + 14 + bonusHeight, y + 4, materials.Planks, createCommands, clearCommands);
+        GetFillCommand(x - 2, z + 14 + bonusHeight, y + 1, x - 2, z + 14 + bonusHeight, y + 3, materials.Planks, createCommands, clearCommands);
+        GetFillCommand(x + 2, z + 14 + bonusHeight, y + 1, x + 2, z + 14 + bonusHeight, y + 3, materials.Planks, createCommands, clearCommands);
+        GetFillCommand(x - 1, z + 15 + bonusHeight, y + 1, x + 1, z + 15 + bonusHeight, y + 3, materials.Planks, createCommands, clearCommands);
 
-        GetFillCommand(x + 1, z + 16, y + 2, x + 1, z + 16, y + 2, materials.PlankStairs + "[facing=west]", createCommands, clearCommands);
-        GetFillCommand(x - 1, z + 16, y + 2, x - 1, z + 16, y + 2, materials.PlankStairs + "[facing=east]", createCommands, clearCommands);
-        GetFillCommand(x, z + 16, y + 1, x, z + 16, y + 1, materials.PlankStairs + "[facing=south]", createCommands, clearCommands);
-        GetFillCommand(x, z + 16, y + 3, x, z + 16, y + 3, materials.PlankStairs + "[facing=north]", createCommands, clearCommands);
+        GetFillCommand(x + 1, z + 16 + bonusHeight, y + 2, x + 1, z + 16 + bonusHeight, y + 2, materials.PlankStairs + "[facing=west]", createCommands, clearCommands);
+        GetFillCommand(x - 1, z + 16 + bonusHeight, y + 2, x - 1, z + 16 + bonusHeight, y + 2, materials.PlankStairs + "[facing=east]", createCommands, clearCommands);
+        GetFillCommand(x, z + 16 + bonusHeight, y + 1, x, z + 16 + bonusHeight, y + 1, materials.PlankStairs + "[facing=south]", createCommands, clearCommands);
+        GetFillCommand(x, z + 16 + bonusHeight, y + 3, x, z + 16 + bonusHeight, y + 3, materials.PlankStairs + "[facing=north]", createCommands, clearCommands);
 
-        GetFillCommand(x, z + 17, y + 2, x, z + 17, y + 2, materials.Planks, createCommands, clearCommands);
-        GetFillCommand(x, z + 18, y + 2, x, z + 18, y + 2, materials.Planks.Replace("_planks", "_fence"), createCommands, clearCommands);
+        GetFillCommand(x, z + 17 + bonusHeight, y + 2, x, z + 17 + bonusHeight, y + 2, materials.Planks, createCommands, clearCommands);
+        GetFillCommand(x, z + 18 + bonusHeight, y + 2, x, z + 18 + bonusHeight, y + 2, materials.Planks.Replace("_planks", "_fence"), createCommands, clearCommands);
     }
 
     public static void BuildTower2(int x, int z, int y, MaterialSet materials, List<string> createCommands, List<string> clearCommands)
@@ -648,6 +649,11 @@ class Program
         GetFillCommand(x, z, y, x2, z2 + (height - 1), y2, materials.StoneBricks, createCommands, clearCommands, true);
     }
 
+    public static void BuildFloors(int x, int z, int y, int x2, int z2, int y2, string material, List<string> createCommands, List<string> clearCommands)
+    {
+        GetFillCommand(x, z, y, x2, z2, y2, material, createCommands, clearCommands, true);
+    }
+
     /// <summary>
     /// Building a castle based on the following template:
     /// https://www.youtube.com/watch?v=a4_qLnYZuls
@@ -686,8 +692,56 @@ class Program
         GetFillCommand(x + 10, z + 6, y + 3, x + 10, z + 6, y + 3, materials.StoneBrickSlabs + "[type=top]", createCommands, clearCommands, true);
         GetFillCommand(x + 11, z + 6, y + 3, x + 11, z + 7, y + 3, materials.RoofRockPolished, createCommands, clearCommands, true);
 
-        BuildTower1(x + 14, z, y + 1, materials, createCommands, clearCommands);
-        BuildTower1(x - 14, z, y + 1, materials, createCommands, clearCommands);
+        BuildTower1(x + 14, z, y + 1, materials, createCommands, clearCommands, 5);
+        BuildTower1(x - 14, z, y + 1, materials, createCommands, clearCommands, 5);
+
+        BuildWalls(x + 14, z, y + 6, x + 14, z, y + 26, 7, materials, createCommands, clearCommands);
+        BuildWalls(x - 14, z, y + 6, x - 14, z, y + 26, 7, materials, createCommands, clearCommands);
+
+        int modFinder = (y + 6) % 2;
+        for (int i = y + 6; i <= y + 26; i++)
+        {
+            if ((i % 2) == modFinder)
+            {
+                GetFillCommand(x + 15, z + 6, i, x + 15, z + 7, i, materials.RoofRockPolished, createCommands, clearCommands, true);
+                GetFillCommand(x - 15, z + 6, i, x - 15, z + 7, i, materials.RoofRockPolished, createCommands, clearCommands, true);
+            }
+            else
+            {
+                GetFillCommand(x + 15, z + 6, i, x + 15, z + 6, i, materials.StoneBrickSlabs + "[type=top]", createCommands, clearCommands, true);
+                GetFillCommand(x - 15, z + 6, i, x - 15, z + 6, i, materials.StoneBrickSlabs + "[type=top]", createCommands, clearCommands, true);
+            }
+        }
+
+        BuildTower1(x + 14, z, y + 27, materials, createCommands, clearCommands, 5);
+        BuildTower1(x - 14, z, y + 27, materials, createCommands, clearCommands, 5);
+
+        BuildWalls(x + 11, z, y + 29, x - 11, z, y + 29, 7, materials, createCommands, clearCommands);
+
+        modFinder = (x - 11) % 2;
+        for (int i = x - 11; i <= x + 11; i++)
+        {
+            if ((i % 2) == modFinder)
+            {
+                GetFillCommand(i, z + 6, y + 30, i, z + 7, y + 30, materials.RoofRockPolished, createCommands, clearCommands, true);
+            }
+            else
+            {
+                GetFillCommand(i, z + 6, y + 30, i, z + 6, y + 30, materials.StoneBrickSlabs + "[type=top]", createCommands, clearCommands, true);
+            }
+        }
+
+        // building the floors:
+        BuildFloors(x + 14, z - 1, y + 7, x - 14, z - 1, y + 29, materials.RoofRockPolished, createCommands, clearCommands);
+        BuildFloors(x + 14, z - 1, y + 7, x - 14, z - 1, y + 29, materials.RoofRockPolished, createCommands, clearCommands);
+
+
+        BuildFloors(x + 14, z - 1, y + 4, x + 5, z - 1, y + 29, materials.RoofRockPolished, createCommands, clearCommands);
+        BuildFloors(x - 14, z - 1, y + 4, x - 5, z - 1, y + 29, materials.RoofRockPolished, createCommands, clearCommands);
+
+        BuildFloors(x + 14, z + 5, y + 5, x + 5, z + 5, y + 27, materials.StoneBricks, createCommands, clearCommands);
+        BuildFloors(x - 14, z + 5, y + 5, x - 5, z + 5, y + 27, materials.StoneBricks, createCommands, clearCommands);
+
 
         //// Example castle structure: towers, walls, gates
         //// Towers
@@ -831,7 +885,10 @@ class Program
             {
                 //input = "mfgx 269 129 804 minecraft:black_concrete minecraft:cut_sandstone supplementaries:end_stone_lamp 2";
                 //input = "mfg 269 129 804 minecraft:black_concrete minecraft:cut_sandstone supplementaries:end_stone_lamp";
+
                 input = "buildcastle 269 130 804 minecraft:stone_bricks minecraft:stone_slab minecraft:stone_brick_slab minecraft:stone_stairs minecraft:glass_pane minecraft:chiseled_stone_bricks minecraft:spruce_log minecraft:stripped_spruce_log minecraft:spruce_planks minecraft:spruce_stairs minecraft:spruce_trapdoor minecraft:spruce_slab minecraft:spruce_door minecraft:andesite minecraft:polished_andesite minecraft:andesite_slab minecraft:cobblestone minecraft:cobblestone_slab minecraft:stone_brick_stairs minecraft:cobblestone_wall minecraft:ladder minecraft:torch minecraft:glowstone";
+
+                //input = "buildcastle 304 130 804 minecraft:stone_bricks minecraft:stone_slab minecraft:stone_brick_slab minecraft:stone_stairs minecraft:glass_pane minecraft:chiseled_stone_bricks minecraft:spruce_log minecraft:stripped_spruce_log minecraft:spruce_planks minecraft:spruce_stairs minecraft:spruce_trapdoor minecraft:spruce_slab minecraft:spruce_door minecraft:andesite minecraft:polished_andesite minecraft:andesite_slab minecraft:cobblestone minecraft:cobblestone_slab minecraft:stone_brick_stairs minecraft:cobblestone_wall minecraft:ladder minecraft:torch minecraft:glowstone";
             }
             else
             {
