@@ -711,8 +711,8 @@ class Program
         GetFillCommand(x + 10, z + 6, y + 3, x + 10, z + 6, y + 3, materials.StoneBrickSlabs + "[type=top]", createCommands, clearCommands, true);
         GetFillCommand(x + 11, z + 6, y + 3, x + 11, z + 7, y + 3, materials.RoofRockPolished, createCommands, clearCommands, true);
 
-        BuildTower1(x + 14, z, y + 1, materials, createCommands, clearCommands, 5);
-        BuildTower1(x - 14, z, y + 1, materials, createCommands, clearCommands, 5);
+        BuildTower1(x + 14, z, y + 1, materials, createCommands, clearCommands, 0);
+        BuildTower1(x - 14, z, y + 1, materials, createCommands, clearCommands, 0);
 
         BuildWalls(x + 14, z, y + 6, x + 14, z, y + 26, 7, materials, createCommands, clearCommands);
         BuildWalls(x - 14, z, y + 6, x - 14, z, y + 26, 7, materials, createCommands, clearCommands);
@@ -737,30 +737,6 @@ class Program
             {
                 GetFillCommand(x + 15, z + 6, i, x + 15, z + 6, i, materials.StoneBrickSlabs + "[type=top]", createCommands, clearCommands, true);
                 GetFillCommand(x - 15, z + 6, i, x - 15, z + 6, i, materials.StoneBrickSlabs + "[type=top]", createCommands, clearCommands, true);
-            }
-        }
-
-        BuildTower1(x + 14, z, y + 27, materials, createCommands, clearCommands, 5);
-        BuildTower1(x - 14, z, y + 27, materials, createCommands, clearCommands, 5);
-
-        BuildWalls(x + 11, z, y + 29, x - 11, z, y + 29, 7, materials, createCommands, clearCommands);
-
-        modFinder = (x - 11) % 2;
-        modFinderLantern = (x - 11) % 4;
-        for (int i = x - 11; i <= x + 11; i++)
-        {
-            if ((i % 2) == modFinder)
-            {
-                GetFillCommand(i, z + 6, y + 30, i, z + 7, y + 30, materials.RoofRockPolished, createCommands, clearCommands, true);
-                if ((i % 4) == modFinderLantern)
-                {
-                    BuildFloors(i, z + 5, y + 30, i, z + 5, y + 30, "lantern[hanging=true]", createCommands, clearCommands);
-                    BuildFloors(i, z + 8, y + 30, i, z + 8, y + 30, "lantern[hanging=false]", createCommands, clearCommands);
-                }
-            }
-            else
-            {
-                GetFillCommand(i, z + 6, y + 30, i, z + 6, y + 30, materials.StoneBrickSlabs + "[type=top]", createCommands, clearCommands, true);
             }
         }
 
@@ -864,7 +840,7 @@ class Program
         BuildFloors(x + 4, z - 1, y + 28, x + 4, z - 1, y + 28, materials.LanternBlock, createCommands, clearCommands);
         BuildFloors(x - 4, z - 1, y + 28, x - 4, z - 1, y + 28, materials.LanternBlock, createCommands, clearCommands);
 
-        // Top floor housing area:
+        // Top floor housing area big house:
         BuildFloors(x + 5, z + 6, y + 18, x - 5, z + 16, y + 28, materials.StoneBricks, createCommands, clearCommands);
 
         int startX = x - 6;
@@ -888,7 +864,6 @@ class Program
         BuildFloors(x - 2, z + 15, y + 26, x - 2, z + 15, y + 26, "lantern[hanging=true]", createCommands, clearCommands);
         BuildFloors(x + 2, z + 15, y + 26, x + 2, z + 15, y + 26, "lantern[hanging=true]", createCommands, clearCommands);
 
-
         BuildFloors(x + 4, z + 6, y + 19, x - 4, z + 6, y + 27, materials.Logs, createCommands, clearCommands);
         BuildFloors(x + 3, z + 6, y + 20, x - 3, z + 6, y + 26, materials.ChiseledBricks, createCommands, clearCommands);
         BuildFloors(x + 2, z + 6, y + 21, x - 2, z + 6, y + 25, materials.Planks, createCommands, clearCommands);
@@ -900,6 +875,67 @@ class Program
 
         BuildFloors(x + 5, z + 6, y + 17, x - 5, z + 6, y + 17, materials.StoneStairs + "[facing=south]", createCommands, clearCommands);
 
+
+        // Top floor housing area little houses:
+        BuildFloors(x + 6, z + 6, y + 19, x + 13, z + 11, y + 19, materials.StrippedLogs, createCommands, clearCommands);
+        BuildFloors(x - 6, z + 6, y + 19, x - 13, z + 11, y + 19, materials.StrippedLogs, createCommands, clearCommands);
+
+        BuildFloors(x + 13, z + 6, y + 19, x + 13, z + 11, y + 26, materials.StrippedLogs, createCommands, clearCommands);
+        BuildFloors(x - 13, z + 6, y + 19, x - 13, z + 11, y + 26, materials.StrippedLogs, createCommands, clearCommands);
+
+        BuildFloors(x + 6, z + 6, y + 28, x + 11, z + 11, y + 28, materials.StrippedLogs, createCommands, clearCommands);
+        BuildFloors(x - 6, z + 6, y + 28, x - 11, z + 11, y + 28, materials.StrippedLogs, createCommands, clearCommands);
+
+        BuildFloors(x + 6, z + 12, y + 19, x + 13, z + 12, y + 26, materials.Planks, createCommands, clearCommands);
+        BuildFloors(x - 6, z + 12, y + 19, x - 13, z + 12, y + 26, materials.Planks, createCommands, clearCommands);
+
+        BuildFloors(x + 6, z + 12, y + 27, x + 11, z + 12, y + 28, materials.Planks, createCommands, clearCommands);
+        BuildFloors(x - 6, z + 12, y + 27, x - 11, z + 12, y + 28, materials.Planks, createCommands, clearCommands);
+
+        BuildFloors(x + 8, z + 11, y + 24, x + 8, z + 11, y + 24, "lantern[hanging=true]", createCommands, clearCommands);
+        BuildFloors(x - 8, z + 11, y + 24, x - 8, z + 11, y + 24, "lantern[hanging=true]", createCommands, clearCommands);
+        BuildFloors(x + 11, z + 11, y + 24, x + 11, z + 11, y + 24, "lantern[hanging=true]", createCommands, clearCommands);
+        BuildFloors(x - 11, z + 11, y + 24, x - 11, z + 11, y + 24, "lantern[hanging=true]", createCommands, clearCommands);
+
+        BuildFloors(x + 8, z + 11, y + 21, x + 8, z + 11, y + 21, "lantern[hanging=true]", createCommands, clearCommands);
+        BuildFloors(x - 8, z + 11, y + 21, x - 8, z + 11, y + 21, "lantern[hanging=true]", createCommands, clearCommands);
+        BuildFloors(x + 11, z + 11, y + 21, x + 11, z + 11, y + 21, "lantern[hanging=true]", createCommands, clearCommands);
+        BuildFloors(x - 11, z + 11, y + 21, x - 11, z + 11, y + 21, "lantern[hanging=true]", createCommands, clearCommands);
+
+        // Doorways:
+        BuildFloors(x + 5, z + 7, y + 23, x + 5, z + 8, y + 23, "air", createCommands, clearCommands);
+        BuildFloors(x - 5, z + 7, y + 23, x - 5, z + 8, y + 23, "air", createCommands, clearCommands);
+
+        BuildFloors(x + 5, z + 7, y + 23, x + 5, z + 7, y + 23, materials.PlankDoor + "[half=lower,facing=east]", createCommands, clearCommands);
+        BuildFloors(x + 5, z + 8, y + 23, x + 5, z + 8, y + 23, materials.PlankDoor + "[half=upper,facing=east]", createCommands, clearCommands);
+
+        BuildFloors(x - 5, z + 7, y + 23, x - 5, z + 7, y + 23, materials.PlankDoor + "[half=lower,facing=west]", createCommands, clearCommands);
+        BuildFloors(x - 5, z + 8, y + 23, x - 5, z + 8, y + 23, materials.PlankDoor + "[half=upper,facing=west]", createCommands, clearCommands);
+
+        // build back towers:
+        BuildTower1(x + 14, z, y + 27, materials, createCommands, clearCommands, 5);
+        BuildTower1(x - 14, z, y + 27, materials, createCommands, clearCommands, 5);
+
+        BuildWalls(x + 11, z, y + 29, x - 11, z, y + 29, 7, materials, createCommands, clearCommands);
+
+        modFinder = (x - 11) % 2;
+        modFinderLantern = (x - 11) % 4;
+        for (int i = x - 11; i <= x + 11; i++)
+        {
+            if ((i % 2) == modFinder)
+            {
+                GetFillCommand(i, z + 6, y + 30, i, z + 7, y + 30, materials.RoofRockPolished, createCommands, clearCommands, true);
+                if ((i % 4) == modFinderLantern)
+                {
+                    BuildFloors(i, z + 5, y + 30, i, z + 5, y + 30, "lantern[hanging=true]", createCommands, clearCommands);
+                    BuildFloors(i, z + 8, y + 30, i, z + 8, y + 30, "lantern[hanging=false]", createCommands, clearCommands);
+                }
+            }
+            else
+            {
+                GetFillCommand(i, z + 6, y + 30, i, z + 6, y + 30, materials.StoneBrickSlabs + "[type=top]", createCommands, clearCommands, true);
+            }
+        }
 
         // Command terminal at the very last:
         BuildFloors(x, z + 4, y + 27, x, z + 7, y + 27, "minecraft:chest", createCommands, clearCommands);
