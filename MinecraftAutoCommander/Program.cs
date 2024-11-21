@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Text;
 using static Program;
+using TextCopy; // Add TextCopy for clipboard functionality
 
 class Program
 {
@@ -567,6 +569,11 @@ class Program
 
         GetFillCommand(x - 1, z + 14 + bonusHeight, y + 0, x + 1, z + 14 + bonusHeight, y + 0, materials.Planks, createCommands, clearCommands);
 
+        BuildFloors(x, z + 14 + bonusHeight, y + 2, x, z + 14 + bonusHeight, y + 2, "lantern[hanging=true]", createCommands, clearCommands);
+        BuildFloors(x, z + 12 + bonusHeight, y + 2, x, z + 12 + bonusHeight, y + 2, "lantern[hanging=true]", createCommands, clearCommands);
+        BuildFloors(x, z + 7 + bonusHeight, y + 2, x, z + 7 + bonusHeight, y + 2, "lantern[hanging=true]", createCommands, clearCommands);
+
+
         GetFillCommand(x - 1, z + 14 + bonusHeight, y + 4, x + 1, z + 14 + bonusHeight, y + 4, materials.Planks, createCommands, clearCommands);
         GetFillCommand(x - 2, z + 14 + bonusHeight, y + 1, x - 2, z + 14 + bonusHeight, y + 3, materials.Planks, createCommands, clearCommands);
         GetFillCommand(x + 2, z + 14 + bonusHeight, y + 1, x + 2, z + 14 + bonusHeight, y + 3, materials.Planks, createCommands, clearCommands);
@@ -642,6 +649,15 @@ class Program
         int startY = y - 1;
         int endY = y + 7;
         BuildRoofWrap(startX, endX, startY, endY, z2 + 6, materials, createCommands, clearCommands);
+
+        BuildFloors(x + 2, z2 + 6 - 1, y - 1, x + 2, z2 + 6 - 1, y - 1, "lantern[hanging=true]", createCommands, clearCommands);
+        BuildFloors(x + 2, z2 + 6 + 2, y - 1, x + 2, z2 + 6 + 2, y - 1, "lantern[hanging=false]", createCommands, clearCommands);
+        BuildFloors(x - 2, z2 + 6 - 1, y - 1, x - 2, z2 + 6 - 1, y - 1, "lantern[hanging=true]", createCommands, clearCommands);
+        BuildFloors(x - 2, z2 + 6 + 2, y - 1, x - 2, z2 + 6 + 2, y - 1, "lantern[hanging=false]", createCommands, clearCommands);
+        BuildFloors(x, z2 + 6 - 2, y, x, z2 + 6 - 2, y, "lantern[hanging=true]", createCommands, clearCommands);
+
+        BuildFloors(x + 1, z + 3, y, x + 1, z + 3, y, "lantern[hanging=true]", createCommands, clearCommands);
+        BuildFloors(x - 1, z + 3, y, x - 1, z + 3, y, "lantern[hanging=true]", createCommands, clearCommands);
     }
 
     public static void BuildWalls(int x, int z, int y, int x2, int z2, int y2, int height, MaterialSet materials, List<string> createCommands, List<string> clearCommands)
@@ -662,6 +678,9 @@ class Program
     {
         List<string> createCommands = new List<string>();
         List<string> clearCommands = new List<string>();
+
+        // clear the basement and upper floors:
+        //BuildFloors(x + 15, z, y, x - 15, z + 30, y + 30, "air", createCommands, clearCommands);
 
         // Gatehouse: 9x7, 5 blocks tall, 5x4 tall clearing top and bottom:
         BuildGatehouse(x, z, y, materials, createCommands, clearCommands);
@@ -699,12 +718,20 @@ class Program
         BuildWalls(x - 14, z, y + 6, x - 14, z, y + 26, 7, materials, createCommands, clearCommands);
 
         int modFinder = (y + 6) % 2;
+        int modFinderLantern = (y + 6) % 4;
         for (int i = y + 6; i <= y + 26; i++)
         {
             if ((i % 2) == modFinder)
             {
                 GetFillCommand(x + 15, z + 6, i, x + 15, z + 7, i, materials.RoofRockPolished, createCommands, clearCommands, true);
                 GetFillCommand(x - 15, z + 6, i, x - 15, z + 7, i, materials.RoofRockPolished, createCommands, clearCommands, true);
+                if ((i % 4) == modFinderLantern)
+                {
+                    BuildFloors(x + 15, z + 5, i, x + 15, z + 5, i, "lantern[hanging=true]", createCommands, clearCommands);
+                    BuildFloors(x + 15, z + 8, i, x + 15, z + 8, i, "lantern[hanging=false]", createCommands, clearCommands);
+                    BuildFloors(x - 15, z + 5, i, x - 15, z + 5, i, "lantern[hanging=true]", createCommands, clearCommands);
+                    BuildFloors(x - 15, z + 8, i, x - 15, z + 8, i, "lantern[hanging=false]", createCommands, clearCommands);
+                }
             }
             else
             {
@@ -719,11 +746,17 @@ class Program
         BuildWalls(x + 11, z, y + 29, x - 11, z, y + 29, 7, materials, createCommands, clearCommands);
 
         modFinder = (x - 11) % 2;
+        modFinderLantern = (x - 11) % 4;
         for (int i = x - 11; i <= x + 11; i++)
         {
             if ((i % 2) == modFinder)
             {
                 GetFillCommand(i, z + 6, y + 30, i, z + 7, y + 30, materials.RoofRockPolished, createCommands, clearCommands, true);
+                if ((i % 4) == modFinderLantern)
+                {
+                    BuildFloors(i, z + 5, y + 30, i, z + 5, y + 30, "lantern[hanging=true]", createCommands, clearCommands);
+                    BuildFloors(i, z + 8, y + 30, i, z + 8, y + 30, "lantern[hanging=false]", createCommands, clearCommands);
+                }
             }
             else
             {
@@ -735,30 +768,123 @@ class Program
         BuildFloors(x + 14, z - 1, y + 7, x - 14, z - 1, y + 29, materials.RoofRockPolished, createCommands, clearCommands);
         BuildFloors(x + 14, z - 1, y + 7, x - 14, z - 1, y + 29, materials.RoofRockPolished, createCommands, clearCommands);
 
-
         BuildFloors(x + 14, z - 1, y + 4, x + 5, z - 1, y + 29, materials.RoofRockPolished, createCommands, clearCommands);
         BuildFloors(x - 14, z - 1, y + 4, x - 5, z - 1, y + 29, materials.RoofRockPolished, createCommands, clearCommands);
 
-        BuildFloors(x + 14, z + 5, y + 5, x + 5, z + 5, y + 27, materials.StoneBricks, createCommands, clearCommands);
-        BuildFloors(x - 14, z + 5, y + 5, x - 5, z + 5, y + 27, materials.StoneBricks, createCommands, clearCommands);
+        BuildFloors(x + 14, z + 5, y + 5, x + 4, z + 5, y + 27, materials.StoneBricks, createCommands, clearCommands);
+        BuildFloors(x - 14, z + 5, y + 5, x - 4, z + 5, y + 27, materials.StoneBricks, createCommands, clearCommands);
+
+        BuildFloors(x + 13, z + 5, y + 13, x - 13, z + 5, y + 28, materials.StoneBricks, createCommands, clearCommands);
+
+        BuildFloors(x + 3, z, y + 7, x + 3, z + 6, y + 12, materials.Logs + "[axis=y]", createCommands, clearCommands);
+        BuildFloors(x - 3, z, y + 7, x - 3, z + 6, y + 12, materials.Logs + "[axis=y]", createCommands, clearCommands);
+
+        BuildFloors(x - 4, z + 5, y + 3, x - 9, z + 5, y + 5, materials.StoneBricks, createCommands, clearCommands);
+        BuildFloors(x + 4, z + 5, y + 3, x + 9, z + 5, y + 5, materials.StoneBricks, createCommands, clearCommands);
+
+        BuildFloors(x + 2, z, y + 7, x - 2, z, y + 7, materials.StoneStairs + "[facing=south]", createCommands, clearCommands);
+        BuildFloors(x + 2, z + 1, y + 8, x - 2, z + 1, y + 8, materials.StoneStairs + "[facing=south]", createCommands, clearCommands);
+        BuildFloors(x + 2, z + 2, y + 9, x - 2, z + 2, y + 9, materials.StoneStairs + "[facing=south]", createCommands, clearCommands);
+        BuildFloors(x + 2, z + 3, y + 10, x - 2, z + 3, y + 10, materials.StoneStairs + "[facing=south]", createCommands, clearCommands);
+        BuildFloors(x + 2, z + 4, y + 11, x - 2, z + 4, y + 11, materials.StoneStairs + "[facing=south]", createCommands, clearCommands);
+        BuildFloors(x + 2, z + 5, y + 12, x - 2, z + 5, y + 12, materials.StoneStairs + "[facing=south]", createCommands, clearCommands);
+
+        BuildFloors(x + 13, z, y + 6, x + 13, z, y + 6, materials.StoneStairs + "[facing=north]", createCommands, clearCommands);
+        BuildFloors(x + 13, z + 1, y + 5, x + 13, z + 2, y + 5, "air", createCommands, clearCommands);
+
+        BuildFloors(x + 12, z, y + 8, x + 13, z, y + 8, materials.StoneStairs + "[facing=south]", createCommands, clearCommands);
+        BuildFloors(x + 12, z + 1, y + 9, x + 13, z + 1, y + 9, materials.StoneStairs + "[facing=south]", createCommands, clearCommands);
+        BuildFloors(x + 12, z + 2, y + 10, x + 13, z + 2, y + 10, materials.StoneStairs + "[facing=south]", createCommands, clearCommands);
+        BuildFloors(x + 12, z + 3, y + 11, x + 13, z + 3, y + 11, materials.StoneStairs + "[facing=south]", createCommands, clearCommands);
+        BuildFloors(x + 12, z + 4, y + 12, x + 13, z + 4, y + 12, materials.StoneStairs + "[facing=south]", createCommands, clearCommands);
+        BuildFloors(x + 12, z + 5, y + 13, x + 13, z + 5, y + 13, materials.StoneStairs + "[facing=south]", createCommands, clearCommands);
+        BuildFloors(x + 12, z + 5, y + 8, x + 13, z + 5, y + 12, "air", createCommands, clearCommands);
+
+        BuildFloors(x - 13, z, y + 6, x - 13, z, y + 6, materials.StoneStairs + "[facing=north]", createCommands, clearCommands);
+        BuildFloors(x - 13, z + 1, y + 5, x - 13, z + 2, y + 5, "air", createCommands, clearCommands);
+
+        BuildFloors(x - 12, z, y + 8, x - 13, z, y + 8, materials.StoneStairs + "[facing=south]", createCommands, clearCommands);
+        BuildFloors(x - 12, z + 1, y + 9, x - 13, z + 1, y + 9, materials.StoneStairs + "[facing=south]", createCommands, clearCommands);
+        BuildFloors(x - 12, z + 2, y + 10, x - 13, z + 2, y + 10, materials.StoneStairs + "[facing=south]", createCommands, clearCommands);
+        BuildFloors(x - 12, z + 3, y + 11, x - 13, z + 3, y + 11, materials.StoneStairs + "[facing=south]", createCommands, clearCommands);
+        BuildFloors(x - 12, z + 4, y + 12, x - 13, z + 4, y + 12, materials.StoneStairs + "[facing=south]", createCommands, clearCommands);
+        BuildFloors(x - 12, z + 5, y + 13, x - 13, z + 5, y + 13, materials.StoneStairs + "[facing=south]", createCommands, clearCommands);
+        BuildFloors(x - 12, z + 5, y + 8, x - 13, z + 5, y + 12, "air", createCommands, clearCommands);
+
+        BuildFloors(x - 4, z + 4, y + 8, x - 4, z + 4, y + 8, "lantern[hanging=true]", createCommands, clearCommands);
+        BuildFloors(x + 4, z + 4, y + 8, x + 4, z + 4, y + 8, "lantern[hanging=true]", createCommands, clearCommands);
+
+        for (int i = 0; i <= 4; i++)
+        {
+            BuildFloors(x - 4, z + 4, y + 8 + (4 * i), x - 4, z + 4, y + 8 + (4 * i), "lantern[hanging=true]", createCommands, clearCommands);
+            BuildFloors(x + 4, z + 4, y + 8 + (4 * i), x + 4, z + 4, y + 8 + (4 * i), "lantern[hanging=true]", createCommands, clearCommands);
+
+            BuildFloors(x - 8, z + 4, y + 8 + (4 * i), x - 8, z + 4, y + 8 + (4 * i), "lantern[hanging=true]", createCommands, clearCommands);
+            BuildFloors(x + 8, z + 4, y + 8 + (4 * i), x + 8, z + 4, y + 8 + (4 * i), "lantern[hanging=true]", createCommands, clearCommands);
+        }
+
+        BuildFloors(x - 3, z + 7, y + 7, x - 3, z + 7, y + 7, "lantern[hanging=false]", createCommands, clearCommands);
+        BuildFloors(x + 3, z + 7, y + 7, x + 3, z + 7, y + 7, "lantern[hanging=false]", createCommands, clearCommands);
+        BuildFloors(x - 3, z + 7, y + 12, x - 3, z + 7, y + 12, "lantern[hanging=false]", createCommands, clearCommands);
+        BuildFloors(x + 3, z + 7, y + 12, x + 3, z + 7, y + 12, "lantern[hanging=false]", createCommands, clearCommands);
+
+        // Building out the basement:
+        BuildFloors(x + 3, z, y + 12, x + 3, z + 4, y + 12, "air", createCommands, clearCommands);
+        BuildFloors(x - 3, z, y + 12, x - 3, z + 4, y + 12, "air", createCommands, clearCommands);
+
+        BuildFloors(x + 5, z, y + 13, x + 5, z + 4, y + 13, materials.Logs + "[axis=y]", createCommands, clearCommands);
+        BuildFloors(x - 5, z, y + 13, x - 5, z + 4, y + 13, materials.Logs + "[axis=y]", createCommands, clearCommands);
+
+        BuildFloors(x + 5, z, y + 14, x + 5, z + 4, y + 28, materials.StoneBricks, createCommands, clearCommands);
+        BuildFloors(x - 5, z, y + 14, x - 5, z + 4, y + 28, materials.StoneBricks, createCommands, clearCommands);
+
+        BuildFloors(x + 6, z, y + 13, x + 13, z + 4, y + 13, materials.StoneBricks, createCommands, clearCommands);
+        BuildFloors(x - 6, z, y + 13, x - 13, z + 4, y + 13, materials.StoneBricks, createCommands, clearCommands);
+
+        BuildFloors(x + 5, z, y + 19, x - 5, z + 4, y + 19, materials.StoneBricks, createCommands, clearCommands);
 
 
-        //// Example castle structure: towers, walls, gates
-        //// Towers
-        //GetFillCommand(x - 10, z, y - 10, x - 6, z + 20, y - 6, materials.StoneBricks, createCommands, clearCommands, true);
-        //GetFillCommand(x + 10, z, y - 10, x + 6, z + 20, y - 6, materials.StoneBricks, createCommands, clearCommands, true);
-        //GetFillCommand(x - 10, z, y + 10, x - 6, z + 20, y + 6, materials.StoneBricks, createCommands, clearCommands, true);
-        //GetFillCommand(x + 10, z, y + 10, x + 6, z + 20, y + 6, materials.StoneBricks, createCommands, clearCommands, true);
+        ///fill 270 130 823 268 133 823 minecraft:oak_trapdoor[open=true]
+        BuildFloors(x + 1, z, y + 19, x - 1, z + 3, y + 19, "minecraft:oak_trapdoor[open=true]", createCommands, clearCommands);
+        BuildFloors(x, z, y + 19, x, z + 1, y + 19, "air", createCommands, clearCommands);
+        BuildFloors(x, z, y + 19, x, z, y + 19, materials.PlankDoor + "[half=lower]", createCommands, clearCommands);
+        BuildFloors(x, z + 1, y + 19, x, z + 1, y + 19, materials.PlankDoor + "[half=upper]", createCommands, clearCommands);
 
-        //// Walls
-        //GetFillCommand(x - 6, z, y - 10, x + 6, z + 10, y - 6, materials.StoneBrickSlabs, createCommands, clearCommands, true);
-        //GetFillCommand(x - 6, z, y + 6, x + 6, z + 10, y + 10, materials.StoneBrickSlabs, createCommands, clearCommands, true);
+        BuildFloors(x + 5, z, y + 15, x + 5, z + 3, y + 17, "minecraft:oak_trapdoor[open=true,facing=west]", createCommands, clearCommands);
+        BuildFloors(x - 5, z, y + 15, x - 5, z + 3, y + 17, "minecraft:oak_trapdoor[open=true,facing=east]", createCommands, clearCommands);
 
-        //// Gate
-        //GetFillCommand(x - 2, z, y - 6, x + 2, z + 3, y - 6, "air", createCommands, clearCommands, true);
+        BuildFloors(x + 5, z, y + 16, x + 5, z + 1, y + 16, "air", createCommands, clearCommands);
+        BuildFloors(x - 5, z, y + 16, x - 5, z + 1, y + 16, "air", createCommands, clearCommands);
 
-        //// Roof
-        //GetFillCommand(x - 12, z + 20, y - 12, x + 12, z + 20, y + 12, materials.RoofRock, createCommands, clearCommands, true);
+        BuildFloors(x + 5, z, y + 16, x + 5, z, y + 16, materials.PlankDoor + "[half=lower,facing=west]", createCommands, clearCommands);
+        BuildFloors(x + 5, z + 1, y + 16, x + 5, z + 1, y + 16, materials.PlankDoor + "[half=upper,facing=west]", createCommands, clearCommands);
+
+        BuildFloors(x - 5, z, y + 16, x - 5, z, y + 16, materials.PlankDoor + "[half=lower]", createCommands, clearCommands);
+        BuildFloors(x - 5, z + 1, y + 16, x - 5, z + 1, y + 16, materials.PlankDoor + "[half=upper]", createCommands, clearCommands);
+
+        BuildFloors(x + 4, z, y + 20, x - 4, z + 3, y + 28, "minecraft:chest", createCommands, clearCommands);
+        BuildFloors(x + 4, z + 4, y + 20, x - 4, z + 4, y + 28, "air", createCommands, clearCommands);
+
+        BuildFloors(x + 4, z - 1, y + 20, x + 4, z - 1, y + 20, materials.LanternBlock, createCommands, clearCommands);
+        BuildFloors(x - 4, z - 1, y + 20, x - 4, z - 1, y + 20, materials.LanternBlock, createCommands, clearCommands);
+        BuildFloors(x + 4, z - 1, y + 28, x + 4, z - 1, y + 28, materials.LanternBlock, createCommands, clearCommands);
+        BuildFloors(x - 4, z - 1, y + 28, x - 4, z - 1, y + 28, materials.LanternBlock, createCommands, clearCommands);
+
+
+
+
+        BuildFloors(x, z + 4, y + 27, x, z + 6, y + 27, "minecraft:chest", createCommands, clearCommands);
+        BuildFloors(x, z + 7, y + 27, x, z + 7, y + 27, "toms_storage:ts.inventory_connector", createCommands, clearCommands);
+        BuildFloors(x, z + 7, y + 26, x, z + 7, y + 26, "toms_storage:ts.crafting_terminal[facing=south]", createCommands, clearCommands);
+
+        BuildFloors(x, z + 6, y + 26, x, z + 6, y + 26, materials.StoneBricks, createCommands, clearCommands);
+        BuildFloors(x, z + 8, y + 27, x, z + 8, y + 27, materials.StoneBricks, createCommands, clearCommands);
+        BuildFloors(x, z + 6, y + 28, x, z + 7, y + 28, materials.StoneBricks, createCommands, clearCommands);
+
+        BuildFloors(x + 1, z + 6, y + 27, x + 1, z + 7, y + 27, materials.StoneBricks, createCommands, clearCommands);
+        BuildFloors(x - 1, z + 6, y + 27, x - 1, z + 7, y + 27, materials.StoneBricks, createCommands, clearCommands);
+
+
 
         return new CommandGenerationResults() { createCommands = createCommands, clearCommands = clearCommands };
     }
@@ -774,65 +900,90 @@ class Program
 
     public static void PrintCommands(CommandGenerationResults results, bool printDeletes = false)
     {
+        StringBuilder clipboardBuilder = new StringBuilder();
+        StringBuilder consoleBuilder = new StringBuilder();
+
         if (results.createCommands != null)
         {
             foreach (string command in results.createCommands)
             {
-                Console.WriteLine(command);
+                consoleBuilder.AppendLine(command);
+                clipboardBuilder.AppendLine(command);
             }
-            Console.WriteLine("");
+            consoleBuilder.AppendLine("");
         }
         if (results.createLastCommands != null)
         {
             foreach (string command in results.createLastCommands)
             {
-                Console.WriteLine(command);
+                consoleBuilder.AppendLine(command);
+                clipboardBuilder.AppendLine(command);
             }
-            Console.WriteLine("");
+            consoleBuilder.AppendLine("");
         }
-        if (printDeletes)
+        if (printDeletes && results.clearCommands != null)
         {
-            if (results.clearCommands != null)
+            foreach (string command in results.clearCommands)
             {
-                foreach (string command in results.clearCommands)
-                {
-                    Console.WriteLine(command);
-                }
-                Console.WriteLine("");
+                consoleBuilder.AppendLine(command);
             }
+            consoleBuilder.AppendLine("");
         }
+
+        Console.WriteLine(consoleBuilder.ToString());
+        // Copy only the relevant commands to the clipboard (excluding clearCommands)
+        ClipboardService.SetText(clipboardBuilder.ToString());
     }
 
     public static void PrintCommands(List<CommandGenerationResults> results, bool printDeletes = false)
     {
+        StringBuilder clipboardBuilder = new StringBuilder();
+        StringBuilder consoleBuilder = new StringBuilder();
+
         foreach (var r in results)
         {
-            foreach (string command in r.createCommands)
+            if (r.createCommands != null)
             {
-                Console.WriteLine(command);
+                foreach (string command in r.createCommands)
+                {
+                    consoleBuilder.AppendLine(command);
+                    clipboardBuilder.AppendLine(command);
+                }
             }
         }
-        Console.WriteLine("");
+        consoleBuilder.AppendLine("");
         foreach (var r in results)
         {
-            foreach (string command in r.createLastCommands)
+            if (r.createLastCommands != null)
             {
-                Console.WriteLine(command);
+                foreach (string command in r.createLastCommands)
+                {
+                    consoleBuilder.AppendLine(command);
+                    clipboardBuilder.AppendLine(command);
+                }
             }
         }
-        Console.WriteLine("");
+        consoleBuilder.AppendLine("");
         if (printDeletes)
         {
             foreach (var r in results)
             {
-                foreach (string command in r.clearCommands)
+                if (r.clearCommands != null)
                 {
-                    Console.WriteLine(command);
+                    foreach (string command in r.clearCommands)
+                    {
+                        consoleBuilder.AppendLine(command);
+                    }
                 }
             }
-            Console.WriteLine("");
+            consoleBuilder.AppendLine("");
         }
+
+        Console.WriteLine(consoleBuilder.ToString());
+        // Copy only the relevant commands to the clipboard (excluding clearCommands)
+        ClipboardService.SetText(clipboardBuilder.ToString());
     }
+
     public static void ShowHelp()
     {
         Console.WriteLine("Available Commands:");
