@@ -831,20 +831,14 @@ class Program
         // Building out the basement:
         BuildFloors(x + 3, z, y + 12, x + 3, z + 4, y + 12, "air", createCommands, clearCommands);
         BuildFloors(x - 3, z, y + 12, x - 3, z + 4, y + 12, "air", createCommands, clearCommands);
-
         BuildFloors(x + 5, z, y + 13, x + 5, z + 4, y + 13, materials.Logs + "[axis=y]", createCommands, clearCommands);
         BuildFloors(x - 5, z, y + 13, x - 5, z + 4, y + 13, materials.Logs + "[axis=y]", createCommands, clearCommands);
-
         BuildFloors(x + 5, z, y + 14, x + 5, z + 4, y + 28, materials.StoneBricks, createCommands, clearCommands);
         BuildFloors(x - 5, z, y + 14, x - 5, z + 4, y + 28, materials.StoneBricks, createCommands, clearCommands);
-
         BuildFloors(x + 6, z, y + 13, x + 13, z + 4, y + 13, materials.StoneBricks, createCommands, clearCommands);
         BuildFloors(x - 6, z, y + 13, x - 13, z + 4, y + 13, materials.StoneBricks, createCommands, clearCommands);
-
         BuildFloors(x + 5, z, y + 19, x - 5, z + 4, y + 19, materials.StoneBricks, createCommands, clearCommands);
 
-
-        ///fill 270 130 823 268 133 823 minecraft:oak_trapdoor[open=true]
         BuildFloors(x + 1, z, y + 19, x - 1, z + 3, y + 19, "minecraft:oak_trapdoor[open=true]", createCommands, clearCommands);
         BuildFloors(x, z, y + 19, x, z + 1, y + 19, "air", createCommands, clearCommands);
         BuildFloors(x, z, y + 19, x, z, y + 19, materials.PlankDoor + "[half=lower]", createCommands, clearCommands);
@@ -870,21 +864,54 @@ class Program
         BuildFloors(x + 4, z - 1, y + 28, x + 4, z - 1, y + 28, materials.LanternBlock, createCommands, clearCommands);
         BuildFloors(x - 4, z - 1, y + 28, x - 4, z - 1, y + 28, materials.LanternBlock, createCommands, clearCommands);
 
+        // Top floor housing area:
+        BuildFloors(x + 5, z + 6, y + 18, x - 5, z + 16, y + 28, materials.StoneBricks, createCommands, clearCommands);
+
+        int startX = x - 6;
+        int endX = x + 6;
+        int startY = y + 17;
+        int endY = y + 29;
+        BuildRoofWrap(startX, endX, startY, endY, z + 16, materials, createCommands, clearCommands);
+
+        BuildFloors(x + 3, z + 18, y + 17, x + 3, z + 18, y + 17, "lantern[hanging=false]", createCommands, clearCommands);
+        BuildFloors(x - 3, z + 18, y + 17, x - 3, z + 18, y + 17, "lantern[hanging=false]", createCommands, clearCommands);
+        BuildFloors(x + 3, z + 15, y + 17, x + 3, z + 15, y + 17, "lantern[hanging=true]", createCommands, clearCommands);
+        BuildFloors(x - 3, z + 15, y + 17, x - 3, z + 15, y + 17, "lantern[hanging=true]", createCommands, clearCommands);
+
+        BuildFloors(x + 3, z + 18, y + 29, x + 3, z + 18, y + 29, "lantern[hanging=false]", createCommands, clearCommands);
+        BuildFloors(x - 3, z + 18, y + 29, x - 3, z + 18, y + 29, "lantern[hanging=false]", createCommands, clearCommands);
+        BuildFloors(x + 3, z + 15, y + 29, x + 3, z + 15, y + 29, "lantern[hanging=true]", createCommands, clearCommands);
+        BuildFloors(x - 3, z + 15, y + 29, x - 3, z + 15, y + 29, "lantern[hanging=true]", createCommands, clearCommands);
+
+        BuildFloors(x + 2, z + 15, y + 20, x + 2, z + 15, y + 20, "lantern[hanging=true]", createCommands, clearCommands);
+        BuildFloors(x - 2, z + 15, y + 20, x - 2, z + 15, y + 20, "lantern[hanging=true]", createCommands, clearCommands);
+        BuildFloors(x - 2, z + 15, y + 26, x - 2, z + 15, y + 26, "lantern[hanging=true]", createCommands, clearCommands);
+        BuildFloors(x + 2, z + 15, y + 26, x + 2, z + 15, y + 26, "lantern[hanging=true]", createCommands, clearCommands);
 
 
+        BuildFloors(x + 4, z + 6, y + 19, x - 4, z + 6, y + 27, materials.Logs, createCommands, clearCommands);
+        BuildFloors(x + 3, z + 6, y + 20, x - 3, z + 6, y + 26, materials.ChiseledBricks, createCommands, clearCommands);
+        BuildFloors(x + 2, z + 6, y + 21, x - 2, z + 6, y + 25, materials.Planks, createCommands, clearCommands);
 
-        BuildFloors(x, z + 4, y + 27, x, z + 6, y + 27, "minecraft:chest", createCommands, clearCommands);
-        BuildFloors(x, z + 7, y + 27, x, z + 7, y + 27, "toms_storage:ts.inventory_connector", createCommands, clearCommands);
-        BuildFloors(x, z + 7, y + 26, x, z + 7, y + 26, "toms_storage:ts.crafting_terminal[facing=south]", createCommands, clearCommands);
+        BuildFloors(x + 1, z + 7, y + 18, x - 1, z + 10, y + 18, "minecraft:oak_trapdoor[open=true]", createCommands, clearCommands);
+        BuildFloors(x, z + 7, y + 18, x, z + 8, y + 18, "air", createCommands, clearCommands);
+        BuildFloors(x, z + 7, y + 18, x, z + 7, y + 18, materials.PlankDoor + "[half=lower]", createCommands, clearCommands);
+        BuildFloors(x, z + 8, y + 18, x, z + 8, y + 18, materials.PlankDoor + "[half=upper]", createCommands, clearCommands);
 
-        BuildFloors(x, z + 6, y + 26, x, z + 6, y + 26, materials.StoneBricks, createCommands, clearCommands);
-        BuildFloors(x, z + 8, y + 27, x, z + 8, y + 27, materials.StoneBricks, createCommands, clearCommands);
-        BuildFloors(x, z + 6, y + 28, x, z + 7, y + 28, materials.StoneBricks, createCommands, clearCommands);
-
-        BuildFloors(x + 1, z + 6, y + 27, x + 1, z + 7, y + 27, materials.StoneBricks, createCommands, clearCommands);
-        BuildFloors(x - 1, z + 6, y + 27, x - 1, z + 7, y + 27, materials.StoneBricks, createCommands, clearCommands);
+        BuildFloors(x + 5, z + 6, y + 17, x - 5, z + 6, y + 17, materials.StoneStairs + "[facing=south]", createCommands, clearCommands);
 
 
+        // Command terminal at the very last:
+        BuildFloors(x, z + 4, y + 27, x, z + 7, y + 27, "minecraft:chest", createCommands, clearCommands);
+        BuildFloors(x, z + 8, y + 27, x, z + 8, y + 27, "toms_storage:ts.inventory_connector", createCommands, clearCommands);
+        BuildFloors(x, z + 8, y + 26, x, z + 8, y + 26, "toms_storage:ts.crafting_terminal[facing=south]", createCommands, clearCommands);
+
+        BuildFloors(x, z + 6, y + 26, x, z + 7, y + 26, materials.StoneBricks, createCommands, clearCommands);
+        BuildFloors(x, z + 8, y + 27, x, z + 9, y + 27, materials.StoneBricks, createCommands, clearCommands);
+        BuildFloors(x, z + 6, y + 28, x, z + 8, y + 28, materials.StoneBricks, createCommands, clearCommands);
+
+        BuildFloors(x + 1, z + 6, y + 27, x + 1, z + 8, y + 27, materials.StoneBricks, createCommands, clearCommands);
+        BuildFloors(x - 1, z + 6, y + 27, x - 1, z + 8, y + 27, materials.StoneBricks, createCommands, clearCommands);
 
         return new CommandGenerationResults() { createCommands = createCommands, clearCommands = clearCommands };
     }
